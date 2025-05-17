@@ -1,129 +1,506 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Resume</title>
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #0056D2;
+            --secondary-color: #0056D2;
+            --accent-color: #FF8C42;
+            --light-bg: #FFFFFF;
+            --dark-bg: #1A1A1A;
+            --text-color: #1A1A1A;
+            --light-text: #F9FAFB;
+            --section-header-bg: #E5E5E5;
+            --nav-bg: #F9FAFB;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 86, 210, 0.95) 0%, rgba(0, 86, 210, 0.8) 100%);
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        nav {
+            background-color: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav li a {
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        nav li a:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        section {
+            margin-bottom: 4rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            padding: 0.5rem 1rem;
+            background-color: var(--section-header-bg);
+            border-radius: 4px;
+        }
+        
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .education-item, .experience-item, .project-item {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .education-item:hover, .experience-item:hover, .project-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .education-item h3, .experience-item h3, .project-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .date {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .skill-category {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .skill-list {
+            list-style-type: none;
+        }
+        
+        .skill-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .skill-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+        
+        .contact-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        input, textarea {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: var(--accent-color);
+        }
+        
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .scroll-top:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="header">
-    <h1>Aspiring Computer Science Student</h1>
-    <p>Leadership | Academic Excellence | Technical Innovation</p>
-  </header>
+    <header id="home">
+        <div class="hero-bg"></div>
+        <div class="header-content">
+            <h1>Aspiring Computer Science Student</h1>
+            <p class="tagline">Leadership | Academic Excellence | Technical Innovation</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-container">
+                <div class="about-text">
+                    <p>I'm a student deeply interested in computer science and game development. I've led teams, contributed to school communities, and continuously work to improve my technical skills despite limited resources. My goal is to pursue CS engineering in a top global university, contribute to AI and software development, and eventually build scalable tech startups that empower others.</p>
+                    <p>Throughout my academic career, I've balanced leadership responsibilities with maintaining excellent grades. I've adapted to curriculum changes while consistently performing in the top percentile of my class.</p>
+                    <p>My passion for technology drives me to explore programming languages and development platforms in my free time, with a particular interest in artificial intelligence applications and game development.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/400/320" alt="placeholder" />
+                </div>
+            </div>
+        </section>
+        
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-item">
+                <h3>12th Grade - Karnataka Board</h3>
+                <p class="date">2025 - 2026</p>
+                <p>Currently pursuing 12th grade education under the Karnataka State Board curriculum, maintaining strong academic performance while preparing for university applications.</p>
+            </div>
+            <div class="education-item">
+                <h3>11th Grade - Karnataka Board</h3>
+                <p class="date">2024 - 2025</p>
+                <p>Scored 91.5% in 11th grade examinations. Successfully adapted to a new state board curriculum while maintaining excellent academic performance.</p>
+            </div>
+            <div class="education-item">
+                <h3>10th Grade - CBSE</h3>
+                <p class="date">2023 - 2024</p>
+                <p>Achieved 91.6% in 10th grade CBSE board examinations. Consistently performed in the top percentile of the class.</p>
+            </div>
+        </section>
+        
+        <section id="experience">
+            <h2>Leadership Experience</h2>
+            <div class="experience-item">
+                <h3>School Pupil Leader (SPL)</h3>
+                <p class="date">10th Grade</p>
+                <p>Served as School Pupil Leader, representing student interests to administration and coordinating school events. Developed leadership, communication, and organizational skills while maintaining strong academic performance.</p>
+            </div>
+            <div class="experience-item">
+                <h3>Vice President - School Literacy Club</h3>
+                <p class="date">10th Grade</p>
+                <p>Organized literacy campaigns and reading events as Vice President of the School Literacy Club. Promoted reading and language skills among peers while developing event management abilities.</p>
+            </div>
+            <div class="experience-item">
+                <h3>Sports Team Leader</h3>
+                <p class="date">9th Grade</p>
+                <p>Led the school sports team to victory in the annual school sports meet. Demonstrated team management, motivation, and strategic planning skills.</p>
+            </div>
+        </section>
+        
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Technical Skills</h3>
+                    <ul class="skill-list">
+                        <li>HTML</li>
+                        <li>JavaScript (in progress)</li>
+                        <li>CS Fundamentals (via CS50)</li>
+                        <li>App Development (using GDevelop)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul class="skill-list">
+                        <li>English (fluent)</li>
+                        <li>Kannada (fluent)</li>
+                        <li>Hindi (basic)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Soft Skills</h3>
+                    <ul class="skill-list">
+                        <li>Leadership</li>
+                        <li>Teamwork</li>
+                        <li>Time Management</li>
+                        <li>Public Speaking</li>
+                        <li>Problem Solving</li>
+                        <li>Adaptability</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="projects">
+            <h2>Projects & Certifications</h2>
+            <div class="project-item">
+                <h3>CS50: Introduction to Computer Science (In Progress)</h3>
+                <p class="date">Expected Completion: October 2025</p>
+                <p>Currently undertaking Harvard University's CS50 introduction to computer science, covering fundamental concepts in programming, algorithms, data structures, and software development.</p>
+            </div>
+            <div class="project-item">
+                <h3>JavaScript Certification Course (In Progress)</h3>
+                <p class="date">Expected Completion: October 2025</p>
+                <p>Developing skills in JavaScript programming through a comprehensive certification course, with a focus on web and application development fundamentals.</p>
+            </div>
+            <div class="project-item">
+                <h3>ForgeAI (Planned)</h3>
+                <p>A productivity application leveraging artificial intelligence to help students manage their study schedules and optimize learning. Project has been conceptualized and will be developed once academic commitments allow.</p>
+            </div>
+            <div class="project-item">
+                <h3>Survival Game Development (Planned)</h3>
+                <p>A game development project using modern game engines to create an immersive survival experience. Project has been temporarily paused to focus on academic priorities but remains an area of strong interest.</p>
+            </div>
+        </section>
+        
 
-  <nav>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-    </ul>
-  </nav>
-
-  <main>
-    <section id="about">
-      <h2>About Me</h2>
-      <p>I am a passionate computer science student focused on building a strong foundation in software development and emerging technologies.</p>
-    </section>
-
-    <section id="education">
-      <h2>Education</h2>
-      <ul>
-        <li><strong>High School Name</strong> – Class 12 (Year - Present)</li>
-        <li><strong>High School Name</strong> – Class 10 (Year - Year)</li>
-      </ul>
-    </section>
-
-    <section id="experience">
-      <h2>Experience</h2>
-      <p>Internships, projects, or personal tech experience can go here.</p>
-    </section>
-
-    <section id="skills">
-      <h2>Skills</h2>
-      <ul>
-        <li>Python</li>
-        <li>JavaScript</li>
-        <li>HTML & CSS</li>
-        <li>Git & GitHub</li>
-      </ul>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <p>Example: A to-do app using HTML, CSS, and JavaScript</p>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Your Name</p>
-  </footer>
+        
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <p>I'm currently seeking opportunities for higher education in computer science at top global universities. Please feel free to reach out if you have any questions or would like to connect.</p>
+                    <p>[Your contact information would appear here on your actual website]</p>
+                </div>
+                
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Student Portfolio. All rights reserved.</p>
+        <p>Created to showcase academic excellence and aspirations in computer science</p>
+    </footer>
+    
+    <a href="#home" class="scroll-top">↑</a>
+    
+    <script>
+        // Simple script to handle smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.style.opacity = '1';
+            } else {
+                scrollTop.style.opacity = '0';
+            }
+        });
+        
+        // Form submission placeholder (would need backend processing in a live site)
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! This is a demo form. On a live site, this would send your message to the site owner.');
+        });
+    </script>
 </body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Resume</title>
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-  <header class="header">
-    <h1>Aspiring Computer Science Student</h1>
-    <p>Leadership | Academic Excellence | Technical Innovation</p>
-  </header>
-
-  <nav>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-    </ul>
-  </nav>
-
-  <main>
-    <section id="about">
-      <h2>About Me</h2>
-      <p>I am a passionate computer science student focused on building a strong foundation in software development and emerging technologies.</p>
-    </section>
-
-    <section id="education">
-      <h2>Education</h2>
-      <ul>
-        <li><strong>High School Name</strong> – Class 12 (Year - Present)</li>
-        <li><strong>High School Name</strong> – Class 10 (Year - Year)</li>
-      </ul>
-    </section>
-
-    <section id="experience">
-      <h2>Experience</h2>
-      <p>Internships, projects, or personal tech experience can go here.</p>
-    </section>
-
-    <section id="skills">
-      <h2>Skills</h2>
-      <ul>
-        <li>Python</li>
-        <li>JavaScript</li>
-        <li>HTML & CSS</li>
-        <li>Git & GitHub</li>
-      </ul>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <p>Example: A to-do app using HTML, CSS, and JavaScript</p>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Your Name</p>
-  </footer>
-</body>
-</html>
+                                                  </html>
